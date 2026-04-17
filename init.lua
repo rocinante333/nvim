@@ -3,9 +3,7 @@ require("config.options")
 
 vim.pack.add({
   { src = 'https://github.com/ellisonleao/gruvbox.nvim' },
-  { src = 'https://github.com/datsfilipe/vesper.nvim' },
   { src = 'https://github.com/cryptomilk/nightcity.nvim' },
-  { src = 'https://github.com/diegoulloao/neofusion.nvim' },
 })
 require("plugins.colorscheme")
 
@@ -16,6 +14,11 @@ vim.pack.add({
     'https://github.com/nvim-lualine/lualine.nvim'
 })
 require("plugins.lualine")
+
+vim.pack.add({
+  { src = 'https://github.com/nvim-mini/mini.icons' },
+})
+require('mini.icons').setup()
 
 --Plug('folke/which-key.nvim') --mappings popup
 vim.pack.add({

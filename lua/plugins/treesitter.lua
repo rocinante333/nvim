@@ -1,20 +1,29 @@
-return {
-  "nvim-treesitter/nvim-treesitter",
-  lazy = false,
-  build = ":TSUpdate",
-  config = function ()
-    local treesitter = require("nvim-treesitter")
-    treesitter.setup()
+local treesitter = require("nvim-treesitter")
 
-	treesitter.install = { "bash", "dockerfile", "go", "html", "java", "javascript", "json", "lua", "markdown", "markdown_inline", "python", "rust", "terraform" },
+treesitter.setup()
 
-    vim.api.nvim_create_autocmd('FileType', {
-      pattern = { "bash", "dockerfile", "go", "html", "java", "javascript", "json", "lua", "markdown", "markdown_inline", "python", "rust", "terraform" },
+local parsers = {
+  "bash",
+  "dockerfile",
+  "go",
+  "html",
+  "java",
+  "json",
+  "lua",
+  "markdown",
+  "markdown_inline",
+  "python",
+  "rust",
+  "terraform",
+  "yaml",
+}
 
-      callback = function()
-        vim.treesitter.start()
-        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-      end,
-    })
-  end
- }
+treesitter.install(parsers)
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = parsers,
+  callback = function()
+    vim.treesitter.start()
+    vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+  end,
+})
