@@ -136,4 +136,7 @@ require('render-markdown').setup({
         above = 0,
         below = 0,
     },
+	
+	html = { enabled = false },
+	latex = { enabled = false },
 })

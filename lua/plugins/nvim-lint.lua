@@ -4,6 +4,7 @@ require('lint').linters_by_ft = { --some of these need to be installed from pack
   sh = {'bash'},
   rust = {'clippy'},
   html = {'htmlhint'},
+  yaml = {'yamllint'},
 }
 
 -- Some linters require a file to be saved to disk, others support linting stdin input.
