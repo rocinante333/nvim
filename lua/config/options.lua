@@ -38,6 +38,8 @@ local options = {
 	concealcursor = "nc",
 	
 	splitkeep = 'screen', --stablizie window open/close
+
+	scrolloff = 50, --keep cursor in middle of screen
 }
 
 for k, v in pairs(options) do
