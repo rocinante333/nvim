@@ -83,3 +83,36 @@ map("n", "<leader>nn", function() --toggle relative vs absolute line numbers
 		vim.wo.relativenumber = true
 	end
 end)
+
+-- align = in for thigns selected with visual block mode
+local function align_equals_in_selection()
+	local srow = vim.fn.line("v")
+	local erow = vim.fn.line(".")
+	if srow > erow then srow, erow = erow, srow end
+
+	local lines = vim.api.nvim_buf_get_lines(0, srow - 1, erow, false)
+	local max_lhs = 0
+
+	for _, line in ipairs(lines) do
+		local _, lhs = line:match("^(%s*)(.-)%s*=")
+		if lhs then
+			lhs = vim.trim(lhs)
+			max_lhs = math.max(max_lhs, vim.fn.strdisplaywidth(lhs))
+		end
+	end
+
+	if max_lhs == 0 then return end
+
+	for i, line in ipairs(lines) do
+		local indent, lhs, rhs = line:match("^(%s*)(.-)%s*=%s*(.*)$")
+		if lhs then
+			lhs = vim.trim(lhs)
+			local pad = max_lhs - vim.fn.strdisplaywidth(lhs)
+			lines[i] = indent .. lhs .. string.rep(" ", pad) .. " = " .. rhs
+		end
+	end
+
+	vim.api.nvim_buf_set_lines(0, srow - 1, erow, false, lines)
+end
+vim.keymap.set("x", "<leader>a", align_equals_in_selection, { desc = "Align = in selection", silent = true })
+

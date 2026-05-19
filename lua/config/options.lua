@@ -39,7 +39,7 @@ local options = {
 	
 	splitkeep = 'screen', --stablizie window open/close
 
-	scrolloff = 5, --keep cursor in middle of screen
+	scrolloff = 50, --keep cursor in middle of screen
 }
 
 for k, v in pairs(options) do
