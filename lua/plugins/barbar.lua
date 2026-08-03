@@ -13,7 +13,8 @@ require("barbar").setup({
   hide = {extensions = false, inactive = false},
 
   icons = {
-    buffer_index = false,
+    -- Show each tab's position, matching the <A-1> … <A-0> BufferGoto mappings.
+    buffer_index = true,
     buffer_number = false,
     button = '',
     diagnostics = {
