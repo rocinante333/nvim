@@ -20,4 +20,5 @@ wk.add({
 { "<leader>H", desc = "htop terminal" },
 { "<leader>T", desc = "git status" },
 { "<leader>F", desc = "fzf opts" },
+{ "<leader>l", desc = "Twighlight/Focus" },
 })

@@ -46,7 +46,7 @@ map("n", "<F8>", ":vertical resize -2<CR>")
 map("n", "<leader>f", ":lua require('fzf-lua').files()<CR>") --search cwd
 map("n", "<leader>Fh", ":lua require('fzf-lua').files({ cwd = '~/' })<CR>") --search home
 map("n", "<leader>Fc", ":lua require('fzf-lua').files({ cwd = '~/.config' })<CR>") --search .config
-map("n", "<leader>Fl", ":lua require('fzf-lua').files({ cwd = '~/.local/src' })<CR>") --search .local/src
+map("n", "<leader>Ft", ":lua require('fzf-lua').files({ cwd = '~/test' })<CR>") --search ~/test
 map("n", "<leader>Ff", ":lua require('fzf-lua').files({ cwd = '..' })<CR>") --search above
 map("n", "<leader>Fr", ":lua require('fzf-lua').resume()<CR>") --last search
 map("n", "<leader>g", ":lua require('fzf-lua').grep()<CR>") --grep
@@ -56,7 +56,6 @@ map("n", "<leader>G", ":lua require('fzf-lua').grep_cword()<CR>") --grep word un
 map("n", "<leader>s", ":%s//g<Left><Left>") --replace all
 map("n", "<leader>t", ":NvimTreeToggle<CR>") --open file explorer
 map("n", "<leader>p", switch_theme) --cycle themes
-map("n", "<leader>P", ":PlugInstall<CR>") --vim-plug
 map('n', '<leader>z', ":lua require('FTerm').open()<CR>") --open term
 map('t', '<Esc>', '<C-\\><C-n><CMD>lua require("FTerm").close()<CR>') --preserves session
 map("n", "<leader>w", ":w<CR>") --write but one less key
@@ -64,7 +63,16 @@ map("n", "<leader>d", ":w ") --duplicate to new name
 map("n", "<leader>x", "<cmd>!chmod +x %<CR>") --make a file executable
 map("n", "<leader>mv", ":!mv % ") --move a file to a new dir
 map("n", "<leader>R", ":so %<CR>") --reload neovim config
-map("n", "<leader>u", ':silent !xdg-open "<cWORD>" &<CR>') --open a url under cursor
+
+map("n", "<leader>u", function()
+	local url = vim.fn.expand("<cWORD>"):match([[https?://[^%s"'<>%]%)}]+]])
+	if not url then
+		vim.notify("No URL found under the cursor", vim.log.levels.WARN)
+		return
+	end
+	vim.ui.open(url)
+end) -- open the URL under the cursor
+
 map("v", "<leader>i", "=gv") --auto indent
 map("n", "<leader>W", ":set wrap!<CR>") --toggle wrap
 map("n", "<leader>l", ":Twilight<CR>") --surrounding dim
@@ -115,4 +123,3 @@ local function align_equals_in_selection()
 	vim.api.nvim_buf_set_lines(0, srow - 1, erow, false, lines)
 end
 vim.keymap.set("x", "<leader>a", align_equals_in_selection, { desc = "Align = in selection", silent = true })
-
