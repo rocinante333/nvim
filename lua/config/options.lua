@@ -5,7 +5,7 @@ local options = {
 	showcmd = false,
 	wrap = false, --toggle bound to leader W
 	mouse = "a", --enable mouse
-	clipboard = "unnamedplus", --system clipboard integration
+	--clipboard = "unnamedplus", --system clipboard integration
 	history = 100, --command line history
 	swapfile = false, --swap just gets in the way, usually
 	backup = false,
@@ -44,6 +44,17 @@ local options = {
 
 for k, v in pairs(options) do
 	vim.opt[k] = v
+
+	-- Make relative line number start at 1 instead of 0
+	_G.custom_line_numbers = function()
+		if vim.wo.relativenumber then
+			return tostring(vim.v.relnum == 0 and 1 or vim.v.relnum + 1)
+		end
+
+		-- Insert mode: preserve normal absolute line numbers.
+		return tostring(vim.v.lnum)
+	end
+	vim.opt.statuscolumn = "%s%=%{v:lua.custom_line_numbers()} "
 end
 
 vim.diagnostic.config({
