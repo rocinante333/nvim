@@ -15,6 +15,7 @@ end
 local themes = { --add more themes here, if installed
 	{ "gruvbox", "gruvbox" },
 	{ "nightcity", "nightcity" },
+	{ "catppuccin-mocha", "catppuccin" },
 }
 
 local current_theme_index = 1

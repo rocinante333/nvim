@@ -4,6 +4,7 @@ require("config.options")
 vim.pack.add({
   { src = 'https://github.com/ellisonleao/gruvbox.nvim' },
   { src = 'https://github.com/cryptomilk/nightcity.nvim' },
+  { src = 'https://github.com/catppuccin/nvim', name = 'catppuccin' },
 })
 require("plugins.colorscheme")
 
